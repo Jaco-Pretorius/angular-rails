@@ -1,5 +1,6 @@
 class TodoController < ApplicationController
   def index
+    render :json => Todo.all
   end
 
   def add

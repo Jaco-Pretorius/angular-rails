@@ -1,17 +1,8 @@
-function TodoController($scope) {
+function TodoController($scope, $http) {
  
-  $scope.items = [
-    {
-      id: 1,
-      description:'rake leaves',
-      completed:false
-    },
-    {
-      id: 2,
-      description:'pick up laundry',
-      completed:true
-    }
-  ];
+  $http.get('/todo/index.json').success(function(data) {
+    $scope.items = data;
+  });
  
 }
 
