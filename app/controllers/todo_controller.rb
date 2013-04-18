@@ -12,14 +12,17 @@ class TodoController < ApplicationController
   end
 
   def update
+    todo = Todo.find(params[:id])
+    todo.update_attributes!(params[:todo])
+    head :ok
+  rescue
+    head :bad_request
   end
 
   def destroy
-    puts params
     Todo.find(params[:id]).delete
     head :ok
-  rescue Exception => e
-    puts e
+  rescue
     head :bad_request 
   end
 end

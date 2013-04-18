@@ -13,9 +13,16 @@ function TodoController($scope, $http, $location) {
     });
   }
 
+  $scope.updateTodo = function(todo) {
+    var id = todo._id
+    $http.put('/todo/' + id + '.json', todo).success(function() {
+      $location.path("list");
+    });
+  }
+
   $scope.deleteTodo = function(todo) {
     var id = todo._id;
-    $http.delete('/todo/' + id).success(function() {
+    $http.delete('/todo/' + id + '.json').success(function() {
       $location.path("list");
       loadTodos(); 
     });

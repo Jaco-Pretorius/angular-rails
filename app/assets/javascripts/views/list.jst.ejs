@@ -1,6 +1,7 @@
 <ul>
   <li data-ng-repeat="item in items">
     <div><label>Description: {{item.description}}</label></div>
+    <div><label>Completed?</label><input type='checkbox' data-ng-model='item.completed' data-ng-click='updateTodo(item)' /></div>
     <div><button data-ng-click="deleteTodo(item)">Delete</button></div>
   </li>
 </ul>
