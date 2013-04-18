@@ -1,6 +1,8 @@
-var todoApp = angular.module('todoApp', [])
+var todoApp = angular.module('todoApp', ['ngResource'])
 
-todoApp.config(function ($routeProvider) {
+todoApp.config(function ($routeProvider, $httpProvider) {
+  $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
+
   $routeProvider
     .when('/list',
       {
