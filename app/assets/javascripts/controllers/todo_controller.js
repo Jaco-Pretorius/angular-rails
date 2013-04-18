@@ -1,8 +1,5 @@
 function TodoController($scope, $http, $location) {
- 
-  $http.get('/todo.json').success(function(data) {
-    $scope.items = data;
-  });
+  loadTodos(); 
 
   $scope.newTodo = function() {
     $location.path("new");
@@ -20,11 +17,18 @@ function TodoController($scope, $http, $location) {
     var id = todo._id;
     $http.delete('/todo/' + id).success(function() {
       $location.path("list");
+      loadTodos(); 
     });
   }
 
   $scope.backToList = function() {
     $location.path("list");
+  }
+
+  function loadTodos() {
+    $http.get('/todo.json').success(function(data) {
+      $scope.items = data;
+    });
   }
 }
 
