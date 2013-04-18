@@ -9,12 +9,15 @@ function TodoController($scope, $http, $location) {
   };
 
   $scope.addTodo = function() {
-    alert('add todo');
+    var description = $scope.newTodo.description;
+    $http.post('/todo/add.json', { description: description }).success(function() {
+      $scope.newTodo.description = '';
+      $location.path("list");
+    });
   }
 
   $scope.backToList = function() {
     $location.path("list");
   }
- 
 }
 
