@@ -3,7 +3,7 @@ class TodoController < ApplicationController
     render :json => Todo.all
   end
 
-  def add
+  def create
     if Todo.create(params[:todo])
       head :ok
     else
@@ -14,6 +14,12 @@ class TodoController < ApplicationController
   def update
   end
 
-  def delete
+  def destroy
+    puts params
+    Todo.find(params[:id]).delete
+    head :ok
+  rescue Exception => e
+    puts e
+    head :bad_request 
   end
 end

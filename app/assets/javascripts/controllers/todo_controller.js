@@ -1,6 +1,6 @@
 function TodoController($scope, $http, $location) {
  
-  $http.get('/todo/index.json').success(function(data) {
+  $http.get('/todo.json').success(function(data) {
     $scope.items = data;
   });
 
@@ -10,8 +10,15 @@ function TodoController($scope, $http, $location) {
 
   $scope.addTodo = function() {
     var description = $scope.newTodo.description;
-    $http.post('/todo/add.json', { description: description }).success(function() {
+    $http.post('/todo.json', { description: description }).success(function() {
       $scope.newTodo.description = '';
+      $location.path("list");
+    });
+  }
+
+  $scope.deleteTodo = function(todo) {
+    var id = todo._id;
+    $http.delete('/todo/' + id).success(function() {
       $location.path("list");
     });
   }
