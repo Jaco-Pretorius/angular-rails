@@ -1,4 +1,4 @@
-function TodoController($scope, $http, $location) {
+function TodoController($scope, $http, $location, $resource, todoFactory) {
   loadTodos(); 
 
   $scope.newTodo = function() {
@@ -6,36 +6,28 @@ function TodoController($scope, $http, $location) {
   };
 
   $scope.addTodo = function() {
-    var description = $scope.newTodo.description;
-    $http.post('/todo.json', { description: description }).success(function() {
-      $scope.newTodo.description = '';
-      $location.path("list");
-    });
+    todoFactory.save($scope.newTodoModel, backToList);
   }
 
   $scope.updateTodo = function(todo) {
-    var id = todo._id
-    $http.put('/todo/' + id + '.json', todo).success(function() {
-      $location.path("list");
-    });
+    todo.$update(backToList);
   }
 
   $scope.deleteTodo = function(todo) {
-    var id = todo._id;
-    $http.delete('/todo/' + id + '.json').success(function() {
-      $location.path("list");
-      loadTodos(); 
+    todo.$delete(function() {
+      loadTodos();
+      backToList();
     });
   }
 
-  $scope.backToList = function() {
+  $scope.backToList = backToList;
+  
+  function backToList() {
     $location.path("list");
   }
 
   function loadTodos() {
-    $http.get('/todo.json').success(function(data) {
-      $scope.items = data;
-    });
+    $scope.items = todoFactory.query() 
   }
 }
 

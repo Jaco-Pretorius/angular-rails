@@ -14,7 +14,7 @@ class TodoController < ApplicationController
   def update
     todo = Todo.find(params[:id])
     todo.update_attributes!(params[:todo])
-    head :ok
+    render :json => todo
   rescue
     head :bad_request
   end

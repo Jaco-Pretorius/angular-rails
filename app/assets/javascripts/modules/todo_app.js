@@ -21,3 +21,4 @@ todoApp.config(function ($routeProvider, $httpProvider) {
       })
     .otherwise({ redirectTo: '/list' });
 });
+
