@@ -1,4 +1,4 @@
-function TodoController($scope, $http, $location, $resource, todoFactory) {
+function TodoController($scope, $http, $location, todoFactory) {
   loadTodos(); 
 
   $scope.newTodo = function() {
